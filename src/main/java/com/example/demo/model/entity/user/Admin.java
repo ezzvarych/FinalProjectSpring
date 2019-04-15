@@ -2,9 +2,11 @@ package com.example.demo.model.entity.user;
 
 import lombok.Builder;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
+@DiscriminatorValue("4")
 public class Admin extends User {
 
     @Builder

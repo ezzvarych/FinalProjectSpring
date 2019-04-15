@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> getByLoginAndPassword(String login, String password) {
-        return Optional.empty();
+        return userRepository.findByLoginOrEmailAndPassword(login, login, password);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> getById(long id) {
-        return Optional.empty();
+        return userRepository.findById(id);
     }
 
     @Override
