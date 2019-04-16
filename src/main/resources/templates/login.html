@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=”http://www.thymeleaf.org”>
+<head>
+    <meta charset="UTF-8">
+    <title>Login page</title>
+</head>
+<body>
+<h3 th:text="${exc}" />
+<h1>Login form</h1>
+<form th:action="@{/login}" th:object="${userDTO}" method="post" enctype="utf8">
+    <div>
+        <p>Your login or email</p>
+        <input th:field="*{login}"/>
+        <p th:each="error : ${#fields.errors('login')}"
+           th:text="${error}">Validation error</p>
+    </div>
+    <div>
+        <p>Password</p>
+        <input type="password" th:field="*{password}"/>
+        <p th:each="error : ${#fields.errors('password')}"
+           th:text="${error}">Validation error</p>
+    </div>
+    <button type="submit">Submit</button>
+</body>
+</html>

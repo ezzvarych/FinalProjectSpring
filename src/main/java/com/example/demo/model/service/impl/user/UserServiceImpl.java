@@ -1,8 +1,9 @@
 package com.example.demo.model.service.impl.user;
 
+import com.example.demo.exception.RepeatedUserException;
 import com.example.demo.model.entity.user.User;
 import com.example.demo.model.repository.user.UserRepository;
-import com.example.demo.model.service.user.UserService;
+import com.example.demo.model.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,12 +18,6 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-
-    @Override
-    public Optional<User> getByLoginAndPassword(String login, String password) {
-        return userRepository.findByLoginOrEmailAndPassword(login, login, password);
-    }
-
     @Override
     public List<User> getAll() {
         return userRepository.findAll();
@@ -35,16 +30,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void create(User entity) {
-
+        Optional<User> fromDB = getByLoginOrEmail(entity.getLogin(), entity.getEmail());
+        if (fromDB.isPresent()) {
+            throw new RepeatedUserException(entity);
+        }
+        userRepository.save(entity);
     }
 
+    //TODO Add if it is needed
     @Override
     public void update(User entity) {
 
     }
 
     @Override
-    public Optional<User> delete(long id) {
-        return Optional.empty();
+    public void delete(long id) {
+        userRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<User> getByLoginOrEmail(String login, String email) {
+        return userRepository.findByLoginOrEmail(login, email);
     }
 }

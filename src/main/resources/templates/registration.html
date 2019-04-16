@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=”http://www.thymeleaf.org”>
+<head>
+    <meta charset="UTF-8">
+    <title>Registration form</title>
+</head>
+<body>
+<h3 th:text="${exc}" />
+<h1>Registration form</h1>
+<form th:action="@{/register}" th:object="${userDTO}" method="post" enctype="utf8">
+    <div>
+        <p>Your real name</p>
+        <input th:field="*{fullName}"/>
+    </div>
+    <div>
+        <p>Your login</p>
+        <input th:field="*{login}"/>
+        <p th:each="error : ${#fields.errors('login')}"
+           th:text="${error}">Validation error</p>
+    </div>
+    <div>
+        <p>Email</p>
+        <input type="email" th:field="*{email}"/>
+        <p th:each="error : ${#fields.errors('email')}"
+           th:text="${error}">Validation error</p>
+    </div>
+    <div>
+        <p>Password</p>
+        <input type="password" th:field="*{password}"/>
+        <p th:each="error : ${#fields.errors('password')}"
+           th:text="${error}">Validation error</p>
+    </div>
+    <select th:field="*{role}">
+        <option th:value="'CUSTOMER'" th:text="Customer"></option>
+        <option th:value="'MASTER'" th:text="Master"></option>
+    </select>
+    <button type="submit">Submit</button>
+</form>
+
+<a th:href="@{/login}">Login</a>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=”http://www.thymeleaf.org”>
+<head>
+    <meta charset="UTF-8">
+    <title>Customer requests</title>
+</head>
+<body>
+<table>
+    <th:block th:each="request : ${requests}">
+        <tr>
+            <td th:text="${request.description}">...</td>
+            <td th:text="${request.date}">...</td>
+        </tr>
+<!--        <tr>-->
+<!--            <td colspan="2" th:text="${user.address}">...</td>-->
+<!--        </tr>-->
+    </th:block>
+</table>
+</body>
+</html>

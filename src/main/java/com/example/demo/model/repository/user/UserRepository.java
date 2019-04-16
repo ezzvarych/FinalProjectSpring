@@ -6,5 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByLoginOrEmailAndPassword(String login, String email, String password);
+    /**
+     * For registration, to find user with same login or email
+     * @param login
+     * @param email
+     * @return
+     */
+    Optional<User> findByLoginOrEmail(String login, String email);
 }
