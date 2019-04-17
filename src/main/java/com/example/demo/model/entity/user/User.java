@@ -1,20 +1,24 @@
 package com.example.demo.model.entity.user;
 
-import com.example.demo.model.entity.request.DeniedRequest;
 import com.example.demo.model.entity.request.Order;
 import com.example.demo.model.entity.request.Request;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * User entity, consist all authorized users in application
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Builder
 public class User {
+    /**
+     * Primary key
+     */
     @EqualsAndHashCode.Exclude
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,18 +36,30 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    /**
+     * User role, important for security
+     */
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    /**
+     * Contain all user as customer requests about repairing
+     */
     @OneToMany(mappedBy = "customer")
     private List<Request> customerRequests;
 
+    /**
+     * To map manager that handle request with request
+     */
     @OneToMany(mappedBy = "manager")
     private List<Request> managerRequests;
 
-    @OneToMany(mappedBy = "manager")
-    private List<DeniedRequest> managerDeniedRequests;
+//    @OneToMany(mappedBy = "request.manager")
+//    private List<DeniedRequest> managerDeniedRequests;
 
+    /**
+     * Map master who take orders with this orders
+     */
     @OneToMany(mappedBy = "master")
     private List<Order> masterOrders;
 

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=”http://www.thymeleaf.org”>
+<head>
+    <meta charset="UTF-8">
+    <title>Deny form</title>
+</head>
+<body>
+<h2>Deny form for request</h2>
+<p th:text="'Request id: ' + ${request.id}"></p>
+<p th:text="'User: ' + ${request.customer.login}" />
+<p th:text="'Description: ' + ${request.description}" />
+<p th:text="'Request date: ' + ${request.date}" />
+<form th:action="@{/manager/deny/} + ${request.id}" method="post">
+    <textarea name="reason" placeholder="Deny Reason" rows="10" cols="30"></textarea>
+    <button type="submit">Deny</button>
+</form>
+</body>
+</html>

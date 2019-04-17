@@ -11,10 +11,8 @@
             <td th:text="${request.description}">...</td>
             <td th:text="${request.date}">...</td>
         </tr>
-<!--        <tr>-->
-<!--            <td colspan="2" th:text="${user.address}">...</td>-->
-<!--        </tr>-->
     </th:block>
 </table>
+<a th:href="@{/customer/new-request}">Create new request</a>
 </body>
 </html>

@@ -9,4 +9,5 @@ import java.util.List;
 public interface RequestRepository extends JpaRepository<Request, Long> {
     List<Request> findAllByCustomer(User customer);
     List<Request> findAllByManagerIsNull();
+    List<Request> findAllByManagerIsNullAndCustomer(User customer);
 }

@@ -1,10 +1,8 @@
 package com.example.demo.model.entity.request;
 
 import com.example.demo.model.entity.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -13,7 +11,6 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,5 +29,16 @@ public class Request {
     @JoinColumn(name = "manager_id")
     private User manager;
 
-    private Date date;
+    private Date date = new Date(System.currentTimeMillis());
+
+    @OneToOne(mappedBy = "request")
+    private DeniedRequest deniedRequest;
+
+    @OneToOne(mappedBy = "request")
+    private Order order;
+
+    public Request(String description, User customer) {
+        this.description = description;
+        this.customer = customer;
+    }
 }

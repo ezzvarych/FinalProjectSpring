@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=”http://www.thymeleaf.org”>
+<head>
+    <meta charset="UTF-8">
+    <title>Accept form</title>
+</head>
+<body>
+<h2>Accept form for request</h2>
+<p th:text="'Request id: ' + ${request.id}"></p>
+<p th:text="'User: ' + ${request.customer.login}" />
+<p th:text="'Description: ' + ${request.description}" />
+<p th:text="'Request date: ' + ${request.date}" />
+<form th:action="@{/manager/accept/} + ${request.id}" method="post">
+    <p>Set price<input type="number" min="0" name="price" /></p>
+    <button type="submit">Accept</button>
+</form>
+</body>
+</html>

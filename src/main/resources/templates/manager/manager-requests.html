@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=”http://www.thymeleaf.org”>
+<head>
+    <meta charset="UTF-8">
+    <title>Manager requests</title>
+</head>
+<body>
+<ul th:each="request : ${requests}">
+    <li>
+        <p th:text="'Problem description: ' + ${request.description}" />
+        <p th:text="'Request date: ' + ${request.date}" />
+        <a th:href="@{/manager/accept/} + ${request.id}"><button type="submit">Accept</button></a>
+        <a th:href="@{/manager/deny/} + ${request.id}"><button type="submit">Deny</button></a>
+    </li>
+</ul>
+<!--<table>-->
+<!--    <th:block th:each="request : ${requests}">-->
+<!--        <tr>-->
+<!--            <td th:text="${request.description}">...</td>-->
+<!--            <td th:text="${request.date}">...</td>-->
+<!--        </tr>-->
+<!--    </th:block>-->
+<!--</table>-->
+</body>
+</html>

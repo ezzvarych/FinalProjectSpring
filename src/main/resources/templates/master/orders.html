@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=”http://www.thymeleaf.org”>
+<head>
+    <meta charset="UTF-8">
+    <title>Free orders</title>
+</head>
+<body>
+<h2>Free orders</h2>
+<ul th:each="order : ${orders}">
+    <li>
+        <form method="post" th:action="@{/master/take/} + ${order.id}">
+            <p th:text="'Problem description: ' + ${order.request.description}"/>
+            <p th:text="'Request date: ' + ${order.request.date}"/>
+            <p th:text="'Price: ' + ${order.price}"/>
+            <button type="submit">Take</button>
+        </form>
+    </li>
+</ul>
+</form>
+</body>
+</html>
