@@ -44,7 +44,7 @@ public class Order {
     @JoinColumn(name = "master_id")
     private User master;
 
-    private boolean isReady;
+    private boolean ready;
 
     /**
      * Feedback by customer about work, master or something else

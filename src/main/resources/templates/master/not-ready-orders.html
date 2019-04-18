@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=”http://www.thymeleaf.org”>
+<head>
+    <meta charset="UTF-8">
+    <title>Not ready orders</title>
+</head>
+<body>
+<ul th:each="order : ${orders}">
+    <li>
+        <form method="post" th:action="@{/master/done/} + ${order.id}">
+            <p th:text="'Problem description: ' + ${order.request.description}"/>
+            <p th:text="'Price: ' + ${order.price}"/>
+            <button type="submit">Done!</button>
+        </form>
+    </li>
+</ul>
+</body>
+</html>

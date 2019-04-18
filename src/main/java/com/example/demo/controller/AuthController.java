@@ -71,15 +71,6 @@ public class AuthController {
         return new ModelAndView("login", "userDTO", new UserDTO());
     }
 
-//    @PostMapping("/login")
-//    public String handleRegistration(@Valid UserDTO userDTO, BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            return "registration";
-//        }
-//        userService.create(getUserFromDTO(userDTO));
-//        return "redirect:/";
-//    }
-
     /**
      * Private method that turn UserDTO entity in User
      * @param userDTO

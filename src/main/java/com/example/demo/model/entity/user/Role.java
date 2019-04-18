@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  * configuration
  */
 public enum Role implements GrantedAuthority {
-    CUSTOMER, MANAGER, MASTER, ADMIN;
+    CUSTOMER, MASTER, MANAGER, ADMIN;
 
     @Override
     public String getAuthority() {

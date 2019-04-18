@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/master")
 public class MasterController {
@@ -23,7 +25,22 @@ public class MasterController {
     }
 
     @PostMapping("/take/{order}")
-    public ModelAndView orderTaken(@PathVariable Order order) {
-        return null;
+    public String orderTaken(@PathVariable Order order) {
+        order.setMaster(UserSupportUtils.getCurrentUser());
+        orderService.update(order);
+        return "redirect:/master/my-orders";
+    }
+
+    @GetMapping("/my-orders")
+    public ModelAndView getMasterOrders() {
+        List<Order> orders = orderService.getNotReadyByMaster(UserSupportUtils.getCurrentUser());
+        return new ModelAndView("/master/not-ready-orders", "orders", orders);
+    }
+
+    @PostMapping("/done/{order}")
+    public String orderDone(@PathVariable Order order) {
+        order.setReady(true);
+        orderService.update(order);
+        return "redirect:/master";
     }
 }

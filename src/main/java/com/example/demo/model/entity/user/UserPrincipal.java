@@ -1,6 +1,8 @@
 package com.example.demo.model.entity.user;
 
 import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,6 +13,7 @@ import java.util.Collection;
  */
 public class UserPrincipal implements UserDetails {
 
+    private Logger logger = LoggerFactory.getLogger(UserPrincipal.class);
     /**
      * Real user entity from db
      */
@@ -19,6 +22,7 @@ public class UserPrincipal implements UserDetails {
 
     public UserPrincipal(User user) {
         this.user = user;
+        logger.info(getAuthorities().toString());
     }
 
     /**

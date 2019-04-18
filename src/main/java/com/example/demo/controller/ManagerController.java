@@ -1,9 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.entity.request.Request;
-import com.example.demo.model.entity.user.UserPrincipal;
 import com.example.demo.model.service.RequestService;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,8 +29,7 @@ public class ManagerController {
 
     @PostMapping("/deny/{request}")
     public String denyRequest(@PathVariable Request request, @RequestParam String reason) {
-        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        request.setManager(userPrincipal.getUser());
+        request.setManager(UserSupportUtils.getCurrentUser());
         requestService.denyRequest(request, reason);
         return "redirect:/manager";
     }
@@ -44,8 +41,7 @@ public class ManagerController {
 
     @PostMapping("/accept/{request}")
     public String acceptRequest(@PathVariable Request request, @RequestParam int price) {
-        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        request.setManager(userPrincipal.getUser());
+        request.setManager(UserSupportUtils.getCurrentUser());
         requestService.acceptRequest(request, price);
         return "redirect:/manager";
     }

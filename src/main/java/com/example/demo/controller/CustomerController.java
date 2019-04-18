@@ -1,33 +1,35 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.entity.Feedback;
+import com.example.demo.model.entity.request.Order;
 import com.example.demo.model.entity.request.Request;
-import com.example.demo.model.entity.user.User;
-import com.example.demo.model.entity.user.UserPrincipal;
+import com.example.demo.model.service.OrderService;
 import com.example.demo.model.service.RequestService;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
 
-    private RequestService requestService;
+    private Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
-    public CustomerController(RequestService requestService) {
+    private RequestService requestService;
+    private OrderService orderService;
+
+    public CustomerController(RequestService requestService, OrderService orderService) {
         this.requestService = requestService;
+        this.orderService = orderService;
     }
 
     @GetMapping
     public ModelAndView getRequests() {
-//        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        User user = userPrincipal.getUser();
         return new ModelAndView("/customer/customer-requests",
-                "requests", requestService.getUnhandledByUser(getCurrentUser()));
+                "requests",
+                requestService.getUnhandledByCustomer(UserSupportUtils.getCurrentUser()));
     }
 
     @GetMapping("/new-request")
@@ -37,14 +39,27 @@ public class CustomerController {
 
     @PostMapping("/new-request")
     public String addNewRequest(@RequestParam String descr) {
-        Request request = new Request(descr, getCurrentUser());
+        Request request = new Request(descr, UserSupportUtils.getCurrentUser());
         requestService.create(request);
         return "redirect:/customer";
     }
 
-    private User getCurrentUser() {
-        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userPrincipal.getUser();
-        return user;
+    @GetMapping("/denied")
+    public ModelAndView getDenied() {
+        return new ModelAndView("/customer/denied",
+                "deniedRequests", requestService.getDeniedOfCustomer(UserSupportUtils.getCurrentUser()));
+    }
+
+    @GetMapping("/done")
+    public ModelAndView getDoneOrders() {
+        return new ModelAndView("/customer/get-done",
+                "doneOrders", orderService.getDoneOrdersByCustomer(UserSupportUtils.getCurrentUser()));
+    }
+
+    @PostMapping("/left-feedback/{order}")
+    public String leftFeedback(@PathVariable Order order, @RequestParam String feedback) {
+        Feedback feed = new Feedback(feedback, order);
+        orderService.leaveFeedback(feed);
+        return "redirect:/customer";
     }
 }

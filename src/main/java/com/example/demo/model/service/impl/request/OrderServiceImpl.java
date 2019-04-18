@@ -1,6 +1,9 @@
 package com.example.demo.model.service.impl.request;
 
+import com.example.demo.model.entity.Feedback;
 import com.example.demo.model.entity.request.Order;
+import com.example.demo.model.entity.user.User;
+import com.example.demo.model.repository.request.FeedbackRepository;
 import com.example.demo.model.repository.request.OrderRepository;
 import com.example.demo.model.service.OrderService;
 import org.springframework.stereotype.Service;
@@ -13,14 +16,31 @@ import java.util.Optional;
 public class OrderServiceImpl implements OrderService {
 
     private OrderRepository orderRepository;
+    private FeedbackRepository feedbackRepository;
 
-    public OrderServiceImpl(OrderRepository orderRepository) {
+    public OrderServiceImpl(OrderRepository orderRepository, FeedbackRepository feedbackRepository) {
         this.orderRepository = orderRepository;
+        this.feedbackRepository = feedbackRepository;
     }
 
     @Override
     public List<Order> getWithoutMaster() {
         return orderRepository.findAllByMasterIsNull();
+    }
+
+    @Override
+    public List<Order> getNotReadyByMaster(User master) {
+        return orderRepository.findAllByMasterAndReadyIsFalse(master);
+    }
+
+    @Override
+    public List<Order> getDoneOrdersByCustomer(User customer) {
+        return orderRepository.findAllByRequestCustomerAndReadyIsTrue(customer);
+    }
+
+    @Override
+    public void leaveFeedback(Feedback feedback) {
+        feedbackRepository.save(feedback);
     }
 
     @Override
@@ -40,7 +60,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void update(Order entity) {
-        throw new NotImplementedException();
+        orderRepository.save(entity);
     }
 
     @Override

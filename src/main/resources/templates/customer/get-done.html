@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=”http://www.thymeleaf.org”>
+<head>
+    <meta charset="UTF-8">
+    <title>Done orders</title>
+</head>
+<body>
+<ul th:each="order : ${doneOrders}">
+    <li>
+        <p th:text="'Problem description: ' + ${order.request.description}" />
+        <div th:if="${order.ready}">
+            <p>This order is already done</p>
+            <div th:if="${order.feedback != null}">
+                <p>You have left your feedback about it</p>
+            </div>
+            <div th:if="${order.feedback == null}">
+                <form method="post" th:action="@{/customer/left-feedback/} + ${order.id}">
+                    <textarea name="feedback">Left your feedback</textarea>
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+    </li>
+</ul>
+</body>
+</html>

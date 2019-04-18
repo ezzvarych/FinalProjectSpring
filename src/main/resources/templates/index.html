@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th=”http://www.thymeleaf.org”>
+<html lang="en" xmlns:th=”http://www.thymeleaf.org”
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Main page</title>
 </head>
 <body>
     <h2>Hello world!</h2>
+    <div sec:authorize="isAuthenticated()">
+        <h1>Hello, <span sec:authentication="name" /></h1>
+        <p><a sec:authorize="hasAuthority('CUSTOMER')" th:href="@{/customer}">Customer main page</a></p>
+        <p><a sec:authorize="hasAuthority('MANAGER')" th:href="@{/manager}">Check users requests(as manager)</a></p>
+        <p><a sec:authorize="hasAuthority('MASTER')" th:href="@{/master}">Check orders(as master)</a></p>
+        <p><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin}">Check admin information</a></p>
+    </div>
+    <div sec:authorize="!isAuthenticated()">
+        <h1>Log in <a th:href="@{/login}">here</a> or register <a th:href="@{/register}"> here</a></h1>
+    </div>
 <!--    <p th:text="${user.login}" />-->
 <!--    <p th:text="${user.password}" />-->
 </body>

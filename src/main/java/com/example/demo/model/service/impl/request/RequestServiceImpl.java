@@ -43,20 +43,23 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<Request> getUnhandledByUser(User customer) {
+    public List<Request> getUnhandledByCustomer(User customer) {
         return requestRepository.findAllByManagerIsNullAndCustomer(customer);
     }
 
     @Override
     public void denyRequest(Request request, String reason) {
-        DeniedRequest deniedRequest = new DeniedRequest(request, reason);
-        deniedRequestRepository.save(deniedRequest);
+        deniedRequestRepository.save(new DeniedRequest(request, reason));
     }
 
     @Override
     public void acceptRequest(Request request, int price) {
-        Order order = new Order(request, price);
-        orderRepository.save(order);
+        orderRepository.save(new Order(request, price));
+    }
+
+    @Override
+    public List<DeniedRequest> getDeniedOfCustomer(User customer) {
+        return deniedRequestRepository.findAllByRequestCustomer(customer);
     }
 
     @Override
