@@ -2,17 +2,25 @@
 <html lang="en" xmlns:th=”http://www.thymeleaf.org”>
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
     <title>Accept form</title>
 </head>
 <body>
+<div class="mb-4" th:insert="header :: header">Heeey</div>
 <h2>Accept form for request</h2>
-<p th:text="'Request id: ' + ${request.id}"></p>
-<p th:text="'User: ' + ${request.customer.login}" />
-<p th:text="'Description: ' + ${request.description}" />
-<p th:text="'Request date: ' + ${request.date}" />
-<form th:action="@{/manager/accept/} + ${request.id}" method="post">
-    <p>Set price<input type="number" min="0" name="price" /></p>
-    <button type="submit">Accept</button>
+<form class="p-4" th:action="@{/manager/accept/} + ${request.id}" method="post">
+    <div class="form-group">
+        <p><span class="font-weight-bold">Request id: </span><span th:text="${request.id}" /></p>
+        <p><span class="font-weight-bold">User: </span><span th:text="${request.customer.login}" /></p>
+        <p><span class="font-weight-bold">Description: </span><span th:text="${request.description}" /></p>
+        <p><span class="font-weight-bold">Request date: </span><span th:text="${request.date}" /></p>
+        <p class="font-weight-bold">Set price <input type="number" min="0" name="price" /></p>
+    </div>
+    <button class="btn btn-success" type="submit">Accept</button>
 </form>
+<div th:insert="footer :: footer">He</div>
+<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.14.3/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 </body>
 </html>

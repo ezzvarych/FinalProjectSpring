@@ -43,7 +43,7 @@
             <li sec:authorize="isAuthenticated()" class=" nav-item dropdown">
             <a class="nav-link dropdown-toggle"
                href="#" id="userInfo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span sec:authentication="name"/>
+                <span class="text-white" sec:authentication="name"/>
             </a>
             <div class="dropdown-menu" aria-labelledby="userInfo">
                 <a class="dropdown-item" th:href="@{/customer/user}">Main page</a>

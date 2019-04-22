@@ -32,15 +32,6 @@ public class AuthController {
         this.userService = userService;
     }
 
-//    @GetMapping("/")
-//    public ModelAndView mainPage(@RequestParam String login) {
-//        Optional<User> user = userService.getByLoginOrEmail(login, login);
-//        if (!user.isPresent()) {
-//            throw new NoSuchUserException(login);
-//        }
-//        return new ModelAndView("index", "user", user.get());
-//    }
-
     /**
      * Throw forward to registration page with UserDTO object
      * @return

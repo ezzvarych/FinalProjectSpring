@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Done orders</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
 </head>
 <body>
-<ul th:each="order : ${doneOrders}">
-    <li>
+<div class="mb-4" th:insert="header :: header">Heeey</div>
+<ul class="list-group" th:each="order : ${doneOrders}">
+    <li class="list-group-item">
         <p th:text="'Problem description: ' + ${order.request.description}" />
         <div th:if="${order.ready}">
             <p>This order is already done</p>
@@ -22,5 +24,9 @@
         </div>
     </li>
 </ul>
+<div th:insert="footer :: footer">He</div>
+<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.14.3/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 </body>
 </html>

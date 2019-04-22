@@ -4,6 +4,7 @@ import com.example.demo.exception.RepeatedUserException;
 import com.example.demo.model.entity.user.User;
 import com.example.demo.model.repository.user.UserRepository;
 import com.example.demo.model.service.UserService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,10 +38,9 @@ public class UserServiceImpl implements UserService {
         userRepository.save(entity);
     }
 
-    //TODO Add if it is needed
     @Override
     public void update(User entity) {
-
+        userRepository.save(entity);
     }
 
     @Override

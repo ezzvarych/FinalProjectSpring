@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
                 .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/register").anonymous()
                 .antMatchers("/customer/**").hasAuthority("CUSTOMER")
                 .antMatchers("/manager/**").hasAuthority("MANAGER")
                 .antMatchers("/master/**").hasAuthority("MASTER")
