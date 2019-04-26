@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.viewsContoller;
 
 import com.example.demo.model.entity.request.Order;
 import com.example.demo.model.service.OrderService;

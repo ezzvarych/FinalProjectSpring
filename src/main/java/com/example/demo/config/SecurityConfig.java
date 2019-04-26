@@ -31,11 +31,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-                .antMatchers("/h2-console/**").permitAll()
-                .antMatchers("/customer/**").hasAuthority("CUSTOMER")
-                .antMatchers("/manager/**").hasAuthority("MANAGER")
-                .antMatchers("/master/**").hasAuthority("MASTER")
-                .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/**").permitAll()
+//                .antMatchers("/h2-console/**").permitAll()
+//                .antMatchers("/customer/**").hasAuthority("CUSTOMER")
+//                .antMatchers("/manager/**").hasAuthority("MANAGER")
+//                .antMatchers("/master/**").hasAuthority("MASTER")
+//                .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .and()
                 .formLogin()
                 .defaultSuccessUrl("/")

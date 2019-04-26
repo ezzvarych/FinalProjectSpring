@@ -91,14 +91,14 @@ public class AuthController {
      * @return
      */
     @ExceptionHandler(RepeatedUserException.class)
-    @ResponseStatus(HttpStatus.CONFLICT)
     public ModelAndView userIsPresentException(RepeatedUserException exception) {
+        logger.warn("Attempt to add existed user!");
         return new ModelAndView("registration", "exc", exception.getMessage());
     }
 
     @ExceptionHandler(NoSuchUserException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
     public ModelAndView exceptionHandler(NoSuchUserException exception) {
+        logger.warn("Page is not found!!!");
         return new ModelAndView("error", "exc", exception.getMessage());
     }
 

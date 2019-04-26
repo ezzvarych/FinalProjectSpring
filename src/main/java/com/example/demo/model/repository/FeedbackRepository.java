@@ -1,4 +1,4 @@
-package com.example.demo.model.repository.request;
+package com.example.demo.model.repository;
 
 import com.example.demo.model.entity.Feedback;
 import org.springframework.data.jpa.repository.JpaRepository;

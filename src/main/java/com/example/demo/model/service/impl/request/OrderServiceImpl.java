@@ -1,16 +1,16 @@
 package com.example.demo.model.service.impl.request;
 
+import com.example.demo.exception.NotFoundByIdException;
 import com.example.demo.model.entity.Feedback;
 import com.example.demo.model.entity.request.Order;
+import com.example.demo.model.entity.request.Request;
 import com.example.demo.model.entity.user.User;
-import com.example.demo.model.repository.request.FeedbackRepository;
+import com.example.demo.model.repository.FeedbackRepository;
 import com.example.demo.model.repository.request.OrderRepository;
 import com.example.demo.model.service.OrderService;
 import org.springframework.stereotype.Service;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -49,18 +49,19 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Optional<Order> getById(long id) {
-        return orderRepository.findById(id);
+    public Order getById(long id) {
+        return orderRepository.findById(id)
+                .orElseThrow(() -> new NotFoundByIdException(Order.class, id));
     }
 
     @Override
-    public void create(Order entity) {
-        orderRepository.save(entity);
+    public Order create(Order entity) {
+        return orderRepository.save(entity);
     }
 
     @Override
-    public void update(Order entity) {
-        orderRepository.save(entity);
+    public Order update(Order entity) {
+        return orderRepository.save(entity);
     }
 
     @Override

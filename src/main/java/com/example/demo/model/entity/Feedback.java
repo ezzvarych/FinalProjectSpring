@@ -14,14 +14,14 @@ import javax.persistence.*;
 public class Feedback {
     @EqualsAndHashCode.Exclude
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, length = 511)
     private String feedback;
 
     @OneToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "id")
+    @MapsId
     private Order order;
 
     public Feedback(String feedback, Order order) {

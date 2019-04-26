@@ -1,5 +1,6 @@
 package com.example.demo.model.service.impl.request;
 
+import com.example.demo.exception.NotFoundByIdException;
 import com.example.demo.model.entity.request.DeniedRequest;
 import com.example.demo.model.entity.request.Order;
 import com.example.demo.model.entity.request.Request;
@@ -11,10 +12,8 @@ import com.example.demo.model.service.RequestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RequestServiceImpl implements RequestService {
@@ -68,18 +67,19 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public Optional<Request> getById(long id) {
-        return requestRepository.findById(id);
+    public Request getById(long id) {
+        return requestRepository.findById(id)
+                .orElseThrow(() -> new NotFoundByIdException(Request.class, id));
     }
 
     @Override
-    public void create(Request entity) {
-        requestRepository.save(entity);
+    public Request create(Request entity) {
+        return requestRepository.save(entity);
     }
 
     @Override
-    public void update(Request entity) {
-        throw new NotImplementedException();
+    public Request update(Request entity) {
+        return requestRepository.save(entity);
     }
 
     @Override
