@@ -5,6 +5,7 @@ import com.example.demo.exception.RepeatedUserException;
 import com.example.demo.model.entity.user.User;
 import com.example.demo.model.repository.user.UserRepository;
 import com.example.demo.model.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -13,9 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
-
-    private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     private UserRepository userRepository;
 
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> getByLoginOrEmail(String login, String email) {
-        logger.warn("Login: " + login + ", email: " + email);
+        log.warn("Login: " + login + ", email: " + email);
         return userRepository.findByLoginOrEmail(login, email);
     }
 }

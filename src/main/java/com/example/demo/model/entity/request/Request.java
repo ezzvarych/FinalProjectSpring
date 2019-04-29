@@ -3,6 +3,7 @@ package com.example.demo.model.entity.request;
 import com.example.demo.model.entity.user.User;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.sql.Date;

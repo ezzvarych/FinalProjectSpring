@@ -1,5 +1,6 @@
-package com.example.demo.model.entity.user;
+package com.example.demo.security;
 
+import com.example.demo.model.entity.user.User;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,16 +14,14 @@ import java.util.Collection;
  */
 public class UserPrincipal implements UserDetails {
 
-    private Logger logger = LoggerFactory.getLogger(UserPrincipal.class);
     /**
      * Real user entity from db
      */
     @Getter
-    private User user;
+    private final User user;
 
-    public UserPrincipal(User user) {
+    public UserPrincipal(final User user) {
         this.user = user;
-        logger.info(getAuthorities().toString());
     }
 
     /**

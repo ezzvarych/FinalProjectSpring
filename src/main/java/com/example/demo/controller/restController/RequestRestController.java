@@ -25,9 +25,9 @@ public class RequestRestController {
                 .body(requestService.create(request));
     }
 
-    @GetMapping("/unhandled/{id}")
-    public ResponseEntity<Request> getCustomerUnhandled(@PathVariable long id) {
-
-    }
+//    @GetMapping("/unhandled/{id}")
+//    public ResponseEntity<Request> getCustomerUnhandled(@PathVariable long id) {
+//
+//    }
 
 }
