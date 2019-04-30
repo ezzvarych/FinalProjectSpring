@@ -15,8 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/customer")
 public class CustomerController {
 
-    private Logger logger = LoggerFactory.getLogger(CustomerController.class);
-
     private RequestService requestService;
     private OrderService orderService;
 
@@ -44,11 +42,11 @@ public class CustomerController {
         return "redirect:/customer";
     }
 
-    @GetMapping("/denied")
-    public ModelAndView getDenied() {
-        return new ModelAndView("/customer/denied",
-                "deniedRequests", requestService.getDeniedOfCustomer(UserSupportUtils.getCurrentUser()));
-    }
+//    @GetMapping("/denied")
+//    public ModelAndView getDenied() {
+//        return new ModelAndView("/customer/denied",
+//                "deniedRequests", requestService.getDeniedOfCustomer(UserSupportUtils.getCurrentUser()));
+//    }
 
     @GetMapping("/done")
     public ModelAndView getDoneOrders() {

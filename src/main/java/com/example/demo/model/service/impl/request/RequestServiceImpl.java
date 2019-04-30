@@ -9,16 +9,14 @@ import com.example.demo.model.repository.request.DeniedRequestRepository;
 import com.example.demo.model.repository.request.OrderRepository;
 import com.example.demo.model.repository.request.RequestRepository;
 import com.example.demo.model.service.RequestService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class RequestServiceImpl implements RequestService {
-
-    private Logger logger = LoggerFactory.getLogger(RequestServiceImpl.class);
 
     private RequestRepository requestRepository;
     private DeniedRequestRepository deniedRequestRepository;
@@ -47,18 +45,13 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public void denyRequest(Request request, String reason) {
-        deniedRequestRepository.save(new DeniedRequest(request, reason));
+    public DeniedRequest denyRequest(Request request, String reason) {
+        return deniedRequestRepository.save(new DeniedRequest(request, reason));
     }
 
     @Override
-    public void acceptRequest(Request request, int price) {
-        orderRepository.save(new Order(request, price));
-    }
-
-    @Override
-    public List<DeniedRequest> getDeniedOfCustomer(User customer) {
-        return deniedRequestRepository.findAllByRequestCustomer(customer);
+    public Order acceptRequest(Request request, int price) {
+        return orderRepository.save(new Order(request, price));
     }
 
     @Override
@@ -79,11 +72,16 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public Request update(Request entity) {
-        return requestRepository.save(entity);
+        Request fromDB = getById(entity.getId());
+        fromDB.setManager(entity.getManager());
+        return requestRepository.save(fromDB);
     }
 
     @Override
     public void delete(long id) {
+        if (!requestRepository.existsById(id)) {
+            throw new NotFoundByIdException(Request.class, id);
+        }
         requestRepository.deleteById(id);
     }
 }

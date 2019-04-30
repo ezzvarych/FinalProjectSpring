@@ -27,22 +27,22 @@ public class ManagerController {
         return new ModelAndView("/manager/deny-form", "request", request);
     }
 
-    @PostMapping("/deny/{request}")
-    public String denyRequest(@PathVariable Request request, @RequestParam String reason) {
-        request.setManager(UserSupportUtils.getCurrentUser());
-        requestService.denyRequest(request, reason);
-        return "redirect:/manager";
-    }
+//    @PostMapping("/deny/{request}")
+//    public String denyRequest(@PathVariable Request request, @RequestParam String reason) {
+//        request.setManager(UserSupportUtils.getCurrentUser());
+//        requestService.denyRequest(request, reason);
+//        return "redirect:/manager";
+//    }
 
     @GetMapping("/accept/{request}")
     public ModelAndView acceptRequestForm(@PathVariable Request request) {
         return new ModelAndView("/manager/accept-form", "request", request);
     }
 
-    @PostMapping("/accept/{request}")
-    public String acceptRequest(@PathVariable Request request, @RequestParam int price) {
-        request.setManager(UserSupportUtils.getCurrentUser());
-        requestService.acceptRequest(request, price);
-        return "redirect:/manager";
-    }
+//    @PostMapping("/accept/{request}")
+//    public String acceptRequest(@PathVariable Request request, @RequestParam int price) {
+//        request.setManager(UserSupportUtils.getCurrentUser());
+//        requestService.acceptRequest(request, price);
+//        return "redirect:/manager";
+//    }
 }

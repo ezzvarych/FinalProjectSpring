@@ -33,8 +33,10 @@ public class User {
     private String login;
 
     @Column(unique = true, length = 128)
+    @JsonIgnore
     private String email;
 
+    @JsonIgnore
     @EqualsAndHashCode.Exclude
     @Column(nullable = false)
     private String password;
@@ -42,6 +44,7 @@ public class User {
     /**
      * User role, important for security
      */
+    @JsonIgnore
     @Enumerated(EnumType.STRING)
     private Role role;
 

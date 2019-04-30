@@ -18,14 +18,12 @@ import java.util.List;
 @Slf4j
 public class UserRestController {
 
-
     private UserService userService;
 
     public UserRestController(UserService userService) {
         this.userService = userService;
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping
     public ResponseEntity<List<User>> getAll() {
         return ResponseEntity.ok(userService.getAll());

@@ -1,6 +1,7 @@
 package com.example.demo.model.entity.request;
 
 import com.example.demo.model.entity.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
@@ -32,9 +33,11 @@ public class Request {
 
     private Date date = new Date(System.currentTimeMillis());
 
+    @JsonIgnore
     @OneToOne(mappedBy = "request")
     private DeniedRequest deniedRequest;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "request")
     private Order order;
 

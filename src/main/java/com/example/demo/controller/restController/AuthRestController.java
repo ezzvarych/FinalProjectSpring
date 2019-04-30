@@ -23,10 +23,6 @@ public class AuthRestController {
     private AuthenticationManager authenticationManager;
     private JwtTokenProvider jwtTokenProvider;
 
-    @Qualifier("userDetails")
-    @Autowired
-    private UserDetailsService userDetailsService;
-
     public AuthRestController(AuthenticationManager authenticationManager,
                               JwtTokenProvider jwtTokenProvider) {
         this.authenticationManager = authenticationManager;
@@ -38,11 +34,10 @@ public class AuthRestController {
         authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(userLoginDTO.getLogin(), userLoginDTO.getPassword()));
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(userLoginDTO.getLogin());
-        String jwtToken = jwtTokenProvider.createToken(userDetails);
+        String jwtToken = jwtTokenProvider.createToken(userLoginDTO.getLogin());
 
         Properties properties = new Properties();
-        properties.setProperty("username", userDetails.getUsername());
+        properties.setProperty("username", userLoginDTO.getLogin());
         properties.setProperty("token", jwtToken);
 
         return ResponseEntity.ok(properties);

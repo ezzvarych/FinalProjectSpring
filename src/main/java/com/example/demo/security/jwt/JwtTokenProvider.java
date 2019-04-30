@@ -1,11 +1,9 @@
 package com.example.demo.security.jwt;
 
-import com.example.demo.model.entity.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,16 +25,19 @@ public class JwtTokenProvider {
     @Value("${jwt.token.expired}")
     private long tokenDuration;
 
-    @Qualifier("userDetails")
-    @Autowired
     private UserDetailsService userDetailsService;
+
+    public JwtTokenProvider(@Qualifier("userDetails") UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @PostConstruct
     protected void init() {
         secret = Base64.getEncoder().encodeToString(secret.getBytes());
     }
 
-    public String createToken(UserDetails userDetails) {
+    public String createToken(String username) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         Claims claims = Jwts.claims().setSubject(userDetails.getUsername());
         claims.put("roles", userDetails.getAuthorities());
 
