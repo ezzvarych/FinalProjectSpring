@@ -21,21 +21,12 @@ import java.util.List;
 public class RequestRestController {
 
     private RequestService requestService;
-    private DeniedRequestService deniedRequestService;
-    private OrderService orderService;
+//    private DeniedRequestService deniedRequestService;
+//    private OrderService orderService;
 
-    public RequestRestController(RequestService requestService, DeniedRequestService deniedRequestService, OrderService orderService) {
+
+    public RequestRestController(RequestService requestService) {
         this.requestService = requestService;
-        this.deniedRequestService = deniedRequestService;
-        this.orderService = orderService;
-    }
-
-    @PostMapping("/test")
-    public void test() {
-        Request request = requestService.getById(1);
-       DeniedRequest deniedRequest = new DeniedRequest(request, "HELLO");
-       deniedRequestService.create(deniedRequest);
-       // deniedRequestService.create(request, "HELLO");
     }
 
     @PostMapping
@@ -55,22 +46,5 @@ public class RequestRestController {
         return ResponseEntity.ok(requestService.getUnhandledByCustomer(UserSupportUtils.getCurrentUser()));
     }
 
-    @GetMapping("/denied")
-    public ResponseEntity<List<DeniedRequest>> getCustomerDenied() {
-        return ResponseEntity.ok(deniedRequestService.getDeniedOfCustomer(UserSupportUtils.getCurrentUser()));
-    }
 
-    @PutMapping("/deny")
-    @PreAuthorize("hasAuthority('MANAGER')")
-    public ResponseEntity<DeniedRequest> denyRequest(@RequestBody DeniedRequest deniedRequest) {
-        deniedRequest.getRequest().setManager(UserSupportUtils.getCurrentUser());
-        return ResponseEntity.ok(deniedRequestService.create(deniedRequest));
-    }
-
-    @PostMapping("/accept")
-    @PreAuthorize("hasAuthority('MANAGER')")
-    public ResponseEntity<Order> acceptRequest(@RequestBody Order order) {
-        order.getRequest().setManager(UserSupportUtils.getCurrentUser());
-        return ResponseEntity.ok(orderService.create(order));
-    }
 }

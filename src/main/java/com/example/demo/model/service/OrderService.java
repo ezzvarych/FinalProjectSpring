@@ -10,5 +10,5 @@ public interface OrderService extends ParentService<Order> {
     List<Order> getWithoutMaster();
     List<Order> getNotReadyByMaster(User master);
     List<Order> getDoneOrdersByCustomer(User customer);
-    void leaveFeedback(Feedback feedback);
+    Feedback leaveFeedback(Feedback feedback);
 }

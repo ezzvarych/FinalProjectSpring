@@ -4,7 +4,6 @@ import com.example.demo.model.entity.request.Order;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -17,15 +16,15 @@ public class Feedback {
     private Long id;
 
     @Column(nullable = false, length = 511)
-    private String feedback;
+    private String feedbackStr;
 
     @OneToOne
     @JoinColumn(name = "id")
     @MapsId
     private Order order;
 
-    public Feedback(String feedback, Order order) {
-        this.feedback = feedback;
+    public Feedback(String feedbackStr, Order order) {
+        this.feedbackStr = feedbackStr;
         this.order = order;
     }
 }

@@ -39,8 +39,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void leaveFeedback(Feedback feedback) {
-        feedbackRepository.save(feedback);
+    public Feedback leaveFeedback(Feedback feedback) {
+        return feedbackRepository.save(feedback);
     }
 
     @Override

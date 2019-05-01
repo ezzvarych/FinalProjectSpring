@@ -13,7 +13,7 @@ public class DeniedRequest {
     @Id
     private Long id;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id")
     @MapsId
     private Request request;

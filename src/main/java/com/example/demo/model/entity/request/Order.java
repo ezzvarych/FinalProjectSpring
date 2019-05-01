@@ -49,7 +49,7 @@ public class Order {
     /**
      * Feedback by customer about work, master or something else
      */
-    @OneToOne(mappedBy = "order")
+    @OneToOne(mappedBy = "order", fetch = FetchType.LAZY)
     private Feedback feedback;
 
     /**
