@@ -19,6 +19,7 @@ public class DeniedRequestServiceImpl implements DeniedRequestService {
     private DeniedRequestRepository deniedRequestRepository;
     private RequestRepository requestRepository;
 
+
     public DeniedRequestServiceImpl(DeniedRequestRepository deniedRequestRepository, RequestRepository requestRepository) {
         this.deniedRequestRepository = deniedRequestRepository;
         this.requestRepository = requestRepository;

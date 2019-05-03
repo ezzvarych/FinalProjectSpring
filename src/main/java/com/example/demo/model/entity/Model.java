@@ -1,5 +1,6 @@
 package com.example.demo.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,6 +21,7 @@ public class Model {
 
     private Integer year;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "model")
     private List<Instruction> instructions;
 }

@@ -5,10 +5,12 @@ import com.example.demo.model.entity.request.Order;
 import com.example.demo.model.entity.request.Request;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.FetchProfile;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Set;
 
 /**
  * User entity, consist all authorized users in application
@@ -70,9 +72,9 @@ public class User {
     private List<Order> masterOrders;
 
     @JsonIgnore
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    private List<Region> masterAllowedRegions;
+    private Set<Region> masterAllowedRegions;
 
     public User(String login, String email, String password, Role role) {
         this.login = login;

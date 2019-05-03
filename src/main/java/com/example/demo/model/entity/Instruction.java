@@ -21,7 +21,7 @@ public class Instruction {
     @Column(nullable = false)
     private String descr;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private Set<Region> allowedRegions;
 }
