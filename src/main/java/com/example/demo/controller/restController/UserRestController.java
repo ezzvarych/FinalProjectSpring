@@ -29,6 +29,7 @@ public class UserRestController {
         return ResponseEntity.ok(userService.getAll());
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
     public ResponseEntity<User> getOne(@PathVariable long id) {
         return ResponseEntity.status(HttpStatus.OK)

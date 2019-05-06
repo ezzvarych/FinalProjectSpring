@@ -8,6 +8,7 @@ import com.example.demo.model.service.DeniedRequestService;
 import com.example.demo.model.service.OrderService;
 import com.example.demo.model.service.RequestService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,12 +18,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/requests")
-@PreAuthorize("hasAuthority('CUSTOMER')")
+@Slf4j
+//@PreAuthorize("hasAuthority('CUSTOMER')")
 public class RequestRestController {
 
     private RequestService requestService;
-//    private DeniedRequestService deniedRequestService;
-//    private OrderService orderService;
 
 
     public RequestRestController(RequestService requestService) {
@@ -41,7 +41,13 @@ public class RequestRestController {
         return ResponseEntity.ok(requestService.getAll());
     }
 
-    @GetMapping("/unhandled")
+    @GetMapping("/user")
+    public ResponseEntity<List<Request>> getCustomerAll() {
+        return ResponseEntity.ok(requestService.getAllByCustomer(UserSupportUtils.getCurrentUser()));
+    }
+
+    @PreAuthorize("hasAuthority('CUSTOMER')")
+    @GetMapping("/user/unhandled")
     public ResponseEntity<List<Request>> getCustomerUnhandled() {
         return ResponseEntity.ok(requestService.getUnhandledByCustomer(UserSupportUtils.getCurrentUser()));
     }

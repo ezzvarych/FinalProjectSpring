@@ -6,13 +6,11 @@ import com.example.demo.model.entity.Region;
 import com.example.demo.model.entity.user.User;
 import com.example.demo.model.repository.InstructionRepository;
 import com.example.demo.model.service.InstructionService;
-import com.example.demo.model.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -55,9 +53,10 @@ public class InstructionServiceImpl implements InstructionService {
         instructionRepository.deleteById(id);
     }
 
-    @Transactional
     @Override
     public List<Instruction> getAllForMaster(User master) {
+        Set<Region> allowed = master.getMasterAllowedRegions();
+        Hibernate.initialize(allowed);
         return instructionRepository
                 .findDistinctByAllowedRegionsIn(master.getMasterAllowedRegions());
     }

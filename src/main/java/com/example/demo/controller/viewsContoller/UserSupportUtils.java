@@ -11,17 +11,9 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 public class UserSupportUtils {
     public static User getCurrentUser() {
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userPrincipal.getUser();
         return user;
     }
-
-//    public static UserDetails getCurrentUserDetails() {
-//        return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//    }
-//
-//    public static boolean hasRights(User user) {
-//        return user.getId().equals(getCurrentUser().getId())
-//                || getCurrentUserDetails().getAuthorities().contains(Role.ADMIN);
-//    }
 }
