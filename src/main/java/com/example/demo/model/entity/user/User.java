@@ -9,6 +9,7 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.FetchProfile;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ import java.util.Set;
  * User entity, consist all authorized users in application
  */
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -29,11 +31,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @EqualsAndHashCode.Include
     private String fullName;
 
+    @EqualsAndHashCode.Include
     @Column(unique = true, nullable = false, length = 64)
     private String login;
 
+    @EqualsAndHashCode.Include
     @Column(unique = true, length = 128)
     @JsonIgnore
     private String email;
@@ -72,9 +77,9 @@ public class User {
     private List<Order> masterOrders;
 
     @JsonIgnore
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection
     @Enumerated(EnumType.STRING)
-    private Set<Region> masterAllowedRegions;
+    private Set<Region> masterAllowedRegions = new HashSet<>();
 
     public User(String login, String email, String password, Role role) {
         this.login = login;

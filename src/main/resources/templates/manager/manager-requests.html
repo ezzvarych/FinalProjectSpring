@@ -2,24 +2,29 @@
 <html lang="en" xmlns:th=”http://www.thymeleaf.org”>
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
     <title>Manager requests</title>
 </head>
 <body>
-<ul th:each="request : ${requests}">
-    <li>
-        <p th:text="'Problem description: ' + ${request.description}" />
-        <p th:text="'Request date: ' + ${request.date}" />
-        <a th:href="@{/manager/accept/} + ${request.id}"><button type="submit">Accept</button></a>
-        <a th:href="@{/manager/deny/} + ${request.id}"><button type="submit">Deny</button></a>
-    </li>
-</ul>
-<!--<table>-->
-<!--    <th:block th:each="request : ${requests}">-->
-<!--        <tr>-->
-<!--            <td th:text="${request.description}">...</td>-->
-<!--            <td th:text="${request.date}">...</td>-->
-<!--        </tr>-->
-<!--    </th:block>-->
-<!--</table>-->
+<div class="mb-4" th:insert="header :: header">Heeey</div>
+<h3>Unhandled by managers requests:</h3>
+<div class="list-group">
+    <ul th:each="request : ${requests}">
+        <li class="list-group-item">
+            <p><span class="font-weight-bold">Problem description:</span>
+                <span th:text="${request.description}" />
+            </p>
+            <p><span class="font-weight-bold">Request date:</span>
+                <span th:text="${request.date}" />
+            </p>
+            <a th:href="@{/manager/accept/} + ${request.id}"><button class="btn btn-success" type="submit">Accept</button></a>
+            <a th:href="@{/manager/deny/} + ${request.id}"><button class="btn btn-danger" type="submit">Deny</button></a>
+        </li>
+    </ul>
+</div>
+<div th:insert="footer :: footer">He</div>
+<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.14.3/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 </body>
 </html>

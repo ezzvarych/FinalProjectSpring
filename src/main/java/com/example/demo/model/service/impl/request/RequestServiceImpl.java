@@ -19,14 +19,19 @@ import java.util.List;
 public class RequestServiceImpl implements RequestService {
 
     private RequestRepository requestRepository;
-    private DeniedRequestRepository deniedRequestRepository;
-    private OrderRepository orderRepository;
+//    private DeniedRequestRepository deniedRequestRepository;
+//    private OrderRepository orderRepository;
 
-    public RequestServiceImpl(RequestRepository requestRepository,
-                              DeniedRequestRepository deniedRequestRepository, OrderRepository orderRepository) {
+//    public RequestServiceImpl(RequestRepository requestRepository,
+//                              DeniedRequestRepository deniedRequestRepository, OrderRepository orderRepository) {
+//        this.requestRepository = requestRepository;
+//        this.deniedRequestRepository = deniedRequestRepository;
+//        this.orderRepository = orderRepository;
+//    }
+
+
+    public RequestServiceImpl(RequestRepository requestRepository) {
         this.requestRepository = requestRepository;
-        this.deniedRequestRepository = deniedRequestRepository;
-        this.orderRepository = orderRepository;
     }
 
     @Override
@@ -42,16 +47,6 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public List<Request> getUnhandledByCustomer(User customer) {
         return requestRepository.findAllByManagerIsNullAndCustomer(customer);
-    }
-
-    @Override
-    public DeniedRequest denyRequest(Request request, String reason) {
-        return deniedRequestRepository.save(new DeniedRequest(request, reason));
-    }
-
-    @Override
-    public Order acceptRequest(Request request, int price) {
-        return orderRepository.save(new Order(request, price));
     }
 
     @Override
@@ -77,11 +72,11 @@ public class RequestServiceImpl implements RequestService {
         return requestRepository.save(fromDB);
     }
 
-    @Override
-    public void delete(long id) {
-        if (!requestRepository.existsById(id)) {
-            throw new NotFoundByIdException(Request.class, id);
-        }
-        requestRepository.deleteById(id);
-    }
+//    @Override
+//    public void delete(long id) {
+//        if (!requestRepository.existsById(id)) {
+//            throw new NotFoundByIdException(Request.class, id);
+//        }
+//        requestRepository.deleteById(id);
+//    }
 }

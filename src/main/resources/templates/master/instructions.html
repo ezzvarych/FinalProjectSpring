@@ -1,20 +1,25 @@
-<!DOCTYPE html>
 <html lang="en" xmlns:th=”http://www.thymeleaf.org”>
 <head>
     <meta charset="UTF-8">
-    <title>Exception</title>
+    <title>Change user role</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
 </head>
 <body>
-<div class="mb-4" th:insert="header :: header">Heeey</div>
-<h1 class="text-center">Welcome! Possibly something went wrong(</h1>
-<h2 class="text-center">Try to open another page, hope we'll help you!</h2>
-<h3 th:text="${exc}" />
-<!--<a th:href="@{/register}">Register</a>-->
-<!--<a th:href="@{/login}">Login</a>-->
+<div th:insert="header :: header">Heeey</div>
+
+<ul class="list-group" th:each="ins : ${instr}">
+    <p><span class="font-weight-bold">Model:</span>
+        <span th:text="${ins.model}" />
+    </p>
+    <p><span class="font-weight-bold">Instruction:</span>
+        <span th:text="${ins.descr}" />
+    </p>
+</ul>
+
 <div th:insert="footer :: footer">He</div>
 <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/1.14.3/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+
 </body>
 </html>

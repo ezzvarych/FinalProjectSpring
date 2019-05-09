@@ -12,78 +12,76 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableTransactionManagement
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Autowired
-//    @Qualifier("userDetails")
-//    private UserDetailsService userDetailsService;
-//
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        //auth.inMemoryAuthentication().withUser("user").password("user").roles("CUSTOMER");
-//        auth.authenticationProvider(authenticationProvider());
-//    }
-//
-//    @Override
-//    public void configure(HttpSecurity httpSecurity) throws Exception {
-//        httpSecurity.authorizeRequests()
-//               .antMatchers("/**").permitAll()
-////                .antMatchers("/h2-console/**").permitAll()
-////                .antMatchers("/customer/**").hasAuthority("CUSTOMER")
-////                .antMatchers("/manager/**").hasAuthority("MANAGER")
-////                .antMatchers("/master/**").hasAuthority("MASTER")
-////                .antMatchers("/admin/**").hasAuthority("ADMIN")
-//                .and()
-//                .formLogin()
-//                .defaultSuccessUrl("/")
-//                .failureUrl("/login");
-//        httpSecurity.csrf().disable();
-//        httpSecurity.headers().frameOptions().disable();
-//    }
-//
-//    @Bean
-//    public DaoAuthenticationProvider authenticationProvider() {
-//        DaoAuthenticationProvider daoAuthenticationProvider =
-//                new DaoAuthenticationProvider();
-//        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-//        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-//        return daoAuthenticationProvider;
-//    }
+    @Autowired
+    @Qualifier("userDetails")
+    private UserDetailsService userDetailsService;
 
-    private JwtTokenProvider jwtTokenProvider;
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        //auth.inMemoryAuthentication().withUser("user").password("user").roles("CUSTOMER");
+        auth.authenticationProvider(authenticationProvider());
+    }
 
-    public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
-        this.jwtTokenProvider = jwtTokenProvider;
+    @Override
+    public void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.authorizeRequests()
+               .antMatchers("/**").permitAll()
+//                .antMatchers("/h2-console/**").permitAll()
+//                .antMatchers("/customer/**").hasAuthority("CUSTOMER")
+//                .antMatchers("/manager/**").hasAuthority("MANAGER")
+//                .antMatchers("/master/**").hasAuthority("MASTER")
+//                .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .and()
+                .formLogin()
+                .defaultSuccessUrl("/")
+                .failureUrl("/login");
+        httpSecurity.csrf().disable();
+        httpSecurity.headers().frameOptions().disable();
     }
 
     @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider daoAuthenticationProvider =
+                new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        return daoAuthenticationProvider;
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .httpBasic().disable()
-                .csrf().disable()
-                .headers().frameOptions().disable()
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers(/*"/auth/login",*/"/**").permitAll()
-                //.anyRequest().authenticated()
-                .and()
-                .apply(new JwtConfigurer(jwtTokenProvider));
-    }
+//    private JwtTokenProvider jwtTokenProvider;
+//
+//    public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
+//        this.jwtTokenProvider = jwtTokenProvider;
+//    }
+//
+//    @Bean
+//    @Override
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        return super.authenticationManagerBean();
+//    }
+//
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http
+//                .httpBasic().disable()
+//                .csrf().disable()
+//                .headers().frameOptions().disable()
+//                .and()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/auth/login", "/h2-console/**").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .apply(new JwtConfigurer(jwtTokenProvider));
+//    }
 
     //TODO Change on real password encoder
     @Bean

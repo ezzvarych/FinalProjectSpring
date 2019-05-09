@@ -3,6 +3,7 @@ package com.example.demo.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -24,4 +25,10 @@ public class Model {
     @JsonIgnore
     @OneToMany(mappedBy = "model")
     private List<Instruction> instructions;
+
+    @Override
+    public String toString() {
+        return name + '\'' +
+                ", year=" + year;
+    }
 }

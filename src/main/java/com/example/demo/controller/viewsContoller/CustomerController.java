@@ -3,6 +3,7 @@ package com.example.demo.controller.viewsContoller;
 import com.example.demo.model.entity.Feedback;
 import com.example.demo.model.entity.request.Order;
 import com.example.demo.model.entity.request.Request;
+import com.example.demo.model.service.DeniedRequestService;
 import com.example.demo.model.service.OrderService;
 import com.example.demo.model.service.RequestService;
 import org.slf4j.Logger;
@@ -17,10 +18,12 @@ public class CustomerController {
 
     private RequestService requestService;
     private OrderService orderService;
+    private DeniedRequestService deniedRequestService;
 
-    public CustomerController(RequestService requestService, OrderService orderService) {
+    public CustomerController(RequestService requestService, OrderService orderService, DeniedRequestService deniedRequestService) {
         this.requestService = requestService;
         this.orderService = orderService;
+        this.deniedRequestService = deniedRequestService;
     }
 
     @GetMapping
@@ -42,11 +45,11 @@ public class CustomerController {
         return "redirect:/customer";
     }
 
-//    @GetMapping("/denied")
-//    public ModelAndView getDenied() {
-//        return new ModelAndView("/customer/denied",
-//                "deniedRequests", requestService.getDeniedOfCustomer(UserSupportUtils.getCurrentUser()));
-//    }
+    @GetMapping("/denied")
+    public ModelAndView getDenied() {
+        return new ModelAndView("/customer/denied",
+                "deniedRequests", deniedRequestService.getDeniedOfCustomer(UserSupportUtils.getCurrentUser()));
+    }
 
     @GetMapping("/done")
     public ModelAndView getDoneOrders() {

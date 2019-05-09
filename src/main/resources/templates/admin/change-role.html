@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=”http://www.thymeleaf.org”>
+<head>
+    <meta charset="UTF-8">
+    <title>Change user role</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+</head>
+<body>
+<div th:insert="header :: header">Heeey</div>
+
+<form class="p-4" th:action="@{/admin/change-role/} + ${user.id}" method="post">
+    <div class="form-group">
+        <p><span class="font-weight-bold">User id: </span><span th:text="${user.id}" /></p>
+        <p><span class="font-weight-bold">Fullname: </span><span th:text="${user?.fullName}" /></p>
+        <p><span class="font-weight-bold">Login: </span><span th:text="${user.login}" /></p>
+        <p class="font-weight-bold">Set role:
+            <select name="role">
+                <option th:value="'CUSTOMER'" th:text="Customer"></option>
+                <option th:value="'MASTER'" th:text="Master"></option>
+                <option th:value="'MANAGER'" th:text="Manager"></option>
+                <option th:value="'ADMIN'" th:text="Admin"></option>
+            </select>
+        </p>
+    </div>
+    <button class="btn btn-success" type="submit">Change</button>
+</form>
+
+<div th:insert="footer :: footer">He</div>
+<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.14.3/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

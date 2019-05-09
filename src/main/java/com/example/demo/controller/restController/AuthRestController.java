@@ -20,26 +20,27 @@ import java.util.Properties;
 @RequestMapping("/auth/login")
 public class AuthRestController {
 
-    private AuthenticationManager authenticationManager;
-    private JwtTokenProvider jwtTokenProvider;
-
-    public AuthRestController(AuthenticationManager authenticationManager,
-                              JwtTokenProvider jwtTokenProvider) {
-        this.authenticationManager = authenticationManager;
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
-
-    @PostMapping
-    public ResponseEntity<Properties> loginProcess(@RequestBody UserLoginDTO userLoginDTO) {
-        authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(userLoginDTO.getLogin(), userLoginDTO.getPassword()));
-
-        String jwtToken = jwtTokenProvider.createToken(userLoginDTO.getLogin());
-
-        Properties properties = new Properties();
-        properties.setProperty("username", userLoginDTO.getLogin());
-        properties.setProperty("token", jwtToken);
-
-        return ResponseEntity.ok(properties);
-    }
+    //TODO Return comments when turn back to rest auth
+//    private AuthenticationManager authenticationManager;
+//    private JwtTokenProvider jwtTokenProvider;
+//
+//    public AuthRestController(AuthenticationManager authenticationManager,
+//                              JwtTokenProvider jwtTokenProvider) {
+//        this.authenticationManager = authenticationManager;
+//        this.jwtTokenProvider = jwtTokenProvider;
+//    }
+//
+//    @PostMapping
+//    public ResponseEntity<Properties> loginProcess(@RequestBody UserLoginDTO userLoginDTO) {
+//        authenticationManager
+//                .authenticate(new UsernamePasswordAuthenticationToken(userLoginDTO.getLogin(), userLoginDTO.getPassword()));
+//
+//        String jwtToken = jwtTokenProvider.createToken(userLoginDTO.getLogin());
+//
+//        Properties properties = new Properties();
+//        properties.setProperty("username", userLoginDTO.getLogin());
+//        properties.setProperty("token", jwtToken);
+//
+//        return ResponseEntity.ok(properties);
+//    }
 }

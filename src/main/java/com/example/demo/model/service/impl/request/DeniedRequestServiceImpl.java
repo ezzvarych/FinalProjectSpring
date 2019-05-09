@@ -42,17 +42,6 @@ public class DeniedRequestServiceImpl implements DeniedRequestService {
 
     @Override
     public DeniedRequest create(DeniedRequest entity) {
-        log.warn(entity.toString());
         return deniedRequestRepository.save(entity);
-    }
-
-    @Override
-    public DeniedRequest update(DeniedRequest entity) {
-        return null;
-    }
-
-    @Override
-    public void delete(long id) {
-
     }
 }

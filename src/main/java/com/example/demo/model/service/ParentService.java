@@ -9,6 +9,6 @@ public interface ParentService<T> {
     List<T> getAll();
     T getById(long id) throws NotFoundByIdException;
     T create(T entity);
-    T update(T entity);
-    void delete(long id);
+//    T update(T entity);
+//    void delete(long id);
 }

@@ -2,10 +2,19 @@
 <html lang="en" xmlns:th=”http://www.thymeleaf.org”>
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
     <title>Customer requests</title>
 </head>
 <body>
-<table>
+<div th:insert="header :: header">Heeey</div>
+<h3 class="mt-4">Unhandled requests:</h3>
+<table class="table my-4">
+    <thead>
+    <tr>
+        <th scope="col">Description</th>
+        <th scope="col">Date</th>
+    </tr>
+    </thead>
     <th:block th:each="request : ${requests}">
         <tr>
             <td th:text="${request.description}">...</td>
@@ -13,6 +22,12 @@
         </tr>
     </th:block>
 </table>
-<a th:href="@{/customer/new-request}">Create new request</a>
+<a th:href="@{/customer/new-request}"><button class="mt-4 mb-4">Create new request</button></a>
+<a th:href="@{/customer/done}"><button class="mt-4 mb-4">Open already done orders</button></a>
+<a th:href="@{/customer/denied}"><button class="mt-4 mb-4">Open denied requests</button></a>
+<div th:insert="footer :: footer">Heeey</div>
+<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.14.3/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 </body>
 </html>

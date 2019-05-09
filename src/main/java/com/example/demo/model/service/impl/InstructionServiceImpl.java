@@ -55,8 +55,7 @@ public class InstructionServiceImpl implements InstructionService {
 
     @Override
     public List<Instruction> getAllForMaster(User master) {
-        Set<Region> allowed = master.getMasterAllowedRegions();
-        Hibernate.initialize(allowed);
+
         return instructionRepository
                 .findDistinctByAllowedRegionsIn(master.getMasterAllowedRegions());
     }

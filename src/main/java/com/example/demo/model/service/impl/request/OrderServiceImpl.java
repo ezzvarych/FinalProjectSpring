@@ -61,11 +61,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order update(Order entity) {
+        Order order = getById(entity.getId());
+        order.setMaster(entity.getMaster());
+        order.setReady(entity.isReady());
         return orderRepository.save(entity);
     }
 
-    @Override
-    public void delete(long id) {
-        orderRepository.deleteById(id);
-    }
 }
