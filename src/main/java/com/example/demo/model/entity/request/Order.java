@@ -44,7 +44,8 @@ public class Order {
     @JoinColumn(name = "master_id")
     private User master;
 
-    private boolean ready;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus = OrderStatus.NOT_ACCEPTED;
 
     /**
      * Feedback by customer about work, master or something else
@@ -52,13 +53,20 @@ public class Order {
     @OneToOne(mappedBy = "order", fetch = FetchType.LAZY)
     private Feedback feedback;
 
+    public Order(Request request, int price) {
+        this.request = request;
+        this.price = price;
+    }
+
     /**
      * To create entity manually
      * @param request - accepted by manager request
      * @param price - order price
      */
-    public Order(Request request, int price) {
+
+    public Order(Request request, int price, String descr) {
         this.request = request;
+        this.request.setDescription(descr);
         this.price = price;
     }
 }

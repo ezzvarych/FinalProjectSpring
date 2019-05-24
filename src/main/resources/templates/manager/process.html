@@ -7,7 +7,8 @@
 </head>
 <body>
 <div class="mb-4" th:insert="header :: header">Heeey</div>
-<h2>Accept form for request</h2>
+<h2>Request processing</h2>
+
 <form class="p-4" th:action="@{/manager/accept/} + ${request.id}" method="post">
     <div class="form-group">
         <p><span class="font-weight-bold">Request id: </span><span th:text="${request.id}" /></p>
@@ -16,6 +17,9 @@
         <p><span class="font-weight-bold">Description: </span><span th:text="${request.description}" /></p>
         <p><span class="font-weight-bold">Request date: </span><span th:text="${request.date}" /></p>
         <p class="font-weight-bold">Set price <input type="number" min="0" name="price" /></p>
+        <p class="font-weight-bold">Set real description:
+            <textarea name="descr"></textarea>
+        </p>
     </div>
     <button class="btn btn-success" type="submit">Accept</button>
 </form>

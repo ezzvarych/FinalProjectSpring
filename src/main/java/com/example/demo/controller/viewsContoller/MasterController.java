@@ -2,6 +2,7 @@ package com.example.demo.controller.viewsContoller;
 
 import com.example.demo.model.entity.Model;
 import com.example.demo.model.entity.request.Order;
+import com.example.demo.model.entity.request.OrderStatus;
 import com.example.demo.model.service.InstructionService;
 import com.example.demo.model.service.OrderService;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,7 @@ public class MasterController {
     @PostMapping("/take/{order}")
     public String orderTaken(@PathVariable Order order) {
         order.setMaster(UserSupportUtils.getCurrentUser());
+        order.setOrderStatus(OrderStatus.IN_PROGRESS);
         orderService.update(order);
         return "redirect:/master/my-orders";
     }
@@ -43,7 +45,7 @@ public class MasterController {
 
     @PostMapping("/done/{order}")
     public String orderDone(@PathVariable Order order) {
-        order.setReady(true);
+        order.setOrderStatus(OrderStatus.DONE);
         orderService.update(order);
         return "redirect:/master";
     }

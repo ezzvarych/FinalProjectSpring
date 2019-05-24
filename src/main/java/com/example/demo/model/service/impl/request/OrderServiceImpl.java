@@ -3,6 +3,7 @@ package com.example.demo.model.service.impl.request;
 import com.example.demo.exception.NotFoundByIdException;
 import com.example.demo.model.entity.Feedback;
 import com.example.demo.model.entity.request.Order;
+import com.example.demo.model.entity.request.OrderStatus;
 import com.example.demo.model.entity.request.Request;
 import com.example.demo.model.entity.user.User;
 import com.example.demo.model.repository.FeedbackRepository;
@@ -25,22 +26,33 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getWithoutMaster() {
-        return orderRepository.findAllByMasterIsNull();
+        return orderRepository.findAllByMasterIsNullAndOrderStatus(OrderStatus.ACCEPTED);
     }
 
     @Override
     public List<Order> getNotReadyByMaster(User master) {
-        return orderRepository.findAllByMasterAndReadyIsFalse(master);
+        return orderRepository.findAllByMasterAndOrderStatus(master, OrderStatus.IN_PROGRESS);
     }
 
     @Override
     public List<Order> getDoneOrdersByCustomer(User customer) {
-        return orderRepository.findAllByRequestCustomerAndReadyIsTrue(customer);
+        return orderRepository.findAllByRequestCustomerAndOrderStatus(customer, OrderStatus.DONE);
+    }
+
+    @Override
+    public List<Order> getNonAcceptedCustomerOrders(User customer) {
+        return orderRepository.findAllByRequestCustomerAndOrderStatus(customer, OrderStatus.NOT_ACCEPTED);
     }
 
     @Override
     public Feedback leaveFeedback(Feedback feedback) {
         return feedbackRepository.save(feedback);
+    }
+
+    @Override
+    public Order userAcceptOrder(Order nonAcceptedOrder) {
+        nonAcceptedOrder.setOrderStatus(OrderStatus.ACCEPTED);
+        return orderRepository.save(nonAcceptedOrder);
     }
 
     @Override
@@ -63,7 +75,7 @@ public class OrderServiceImpl implements OrderService {
     public Order update(Order entity) {
         Order order = getById(entity.getId());
         order.setMaster(entity.getMaster());
-        order.setReady(entity.isReady());
+        order.setOrderStatus(entity.getOrderStatus());
         return orderRepository.save(entity);
     }
 

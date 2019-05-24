@@ -6,7 +6,7 @@
 </head>
 <body>
 <div th:insert="header :: header">Heeey</div>
-
+<h2>Master allowed instructions</h2>
 <ul class="list-group" th:each="ins : ${instr}">
     <p><span class="font-weight-bold">Model:</span>
         <span th:text="${ins.model}" />

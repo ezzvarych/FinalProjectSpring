@@ -30,6 +30,11 @@ public class ManagerController {
                 "requests", requestService.getAllUnhandled());
     }
 
+    @GetMapping("/process/{request}")
+    public ModelAndView processRequest(@PathVariable Request request) {
+        return new ModelAndView("/manager/process", "request", request);
+    }
+
     @GetMapping("/deny/{request}")
     public ModelAndView denyRequestForm(@PathVariable Request request) {
         return new ModelAndView("/manager/deny-form", "request", request);
@@ -49,10 +54,10 @@ public class ManagerController {
     }
 
     @PostMapping("/accept/{request}")
-    public String acceptRequest(@PathVariable Request request, @RequestParam int price) {
+    public String acceptRequest(@PathVariable Request request, @RequestParam int price, @RequestParam String descr) {
         request.setManager(UserSupportUtils.getCurrentUser());
         //requestService.acceptRequest(request, price);
-        orderService.create(new Order(request, price));
+        orderService.create(new Order(request, price, descr));
         return "redirect:/manager";
     }
 }

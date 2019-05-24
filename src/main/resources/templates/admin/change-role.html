@@ -13,6 +13,7 @@
         <p><span class="font-weight-bold">User id: </span><span th:text="${user.id}" /></p>
         <p><span class="font-weight-bold">Fullname: </span><span th:text="${user?.fullName}" /></p>
         <p><span class="font-weight-bold">Login: </span><span th:text="${user.login}" /></p>
+        <p><span class="font-weight-bold">Phone: </span><span th:text="${user.phone}" /></p>
         <p class="font-weight-bold">Set role:
             <select name="role">
                 <option th:value="'CUSTOMER'" th:text="Customer"></option>

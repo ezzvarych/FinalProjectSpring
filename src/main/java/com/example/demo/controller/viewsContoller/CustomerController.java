@@ -45,6 +45,17 @@ public class CustomerController {
         return "redirect:/customer";
     }
 
+    @GetMapping("/non-accepted")
+    public ModelAndView getNonAccepted() {
+        return new ModelAndView("/customer/not-accepted", "orders", orderService.getNonAcceptedCustomerOrders(UserSupportUtils.getCurrentUser()));
+    }
+
+    @PostMapping("/process/{order}")
+    public String userAcceptOrder(@PathVariable Order order) {
+        orderService.userAcceptOrder(order);
+        return "redirect:/customer";
+    }
+
     @GetMapping("/denied")
     public ModelAndView getDenied() {
         return new ModelAndView("/customer/denied",

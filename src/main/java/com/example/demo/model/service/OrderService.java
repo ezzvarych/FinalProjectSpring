@@ -11,5 +11,7 @@ public interface OrderService extends ParentService<Order>, Updatable<Order> {
     List<Order> getWithoutMaster();
     List<Order> getNotReadyByMaster(User master);
     List<Order> getDoneOrdersByCustomer(User customer);
+    List<Order> getNonAcceptedCustomerOrders(User customer);
     Feedback leaveFeedback(Feedback feedback);
+    Order userAcceptOrder(Order nonAcceptedOrder);
 }

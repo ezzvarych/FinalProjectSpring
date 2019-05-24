@@ -4,6 +4,7 @@ import com.example.demo.controller.viewsContoller.UserSupportUtils;
 import com.example.demo.model.dto.AcceptRequestDTO;
 import com.example.demo.model.entity.Feedback;
 import com.example.demo.model.entity.request.Order;
+import com.example.demo.model.entity.request.OrderStatus;
 import com.example.demo.model.entity.request.Request;
 import com.example.demo.model.service.OrderService;
 import com.example.demo.model.service.RequestService;
@@ -69,14 +70,14 @@ public class OrderRestController {
     @PutMapping("/{id}/done")
     public ResponseEntity<Order> doneOrder(@PathVariable long id) {
         Order order = orderService.getById(id);
-        if (order.isReady()) {
+        if (order.getOrderStatus() == OrderStatus.DONE) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         } else if (!order.getMaster().getId()
                 .equals(UserSupportUtils.getCurrentUser().getId())) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
-        order.setReady(true);
+        order.setOrderStatus(OrderStatus.DONE);
         return ResponseEntity.status(HttpStatus.CONTINUE)
                 .body(orderService.create(order));
     }

@@ -14,6 +14,7 @@
         <th scope="col">ID</th>
         <th scope="col">Fullname</th>
         <th scope="col">Login</th>
+        <th scope="col">Phone</th>
         <th scope="col">Role</th>
     </tr>
     </thead>
@@ -22,6 +23,7 @@
             <td th:text="${user.id}">...</td>
             <td th:text="${user?.fullName}">...</td>
             <td><a th:href="@{/admin/change-role/} + ${user.id}" th:text="${user.login}"></a></td>
+            <td th:text="${user.phone}">...</td>
             <td th:text="${user.role}">...</td>
             </a>
         </tr>

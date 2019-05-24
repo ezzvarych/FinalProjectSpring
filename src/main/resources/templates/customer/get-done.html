@@ -10,7 +10,7 @@
 <ul class="list-group" th:each="order : ${doneOrders}">
     <li class="list-group-item">
         <p th:text="'Problem description: ' + ${order.request.description}" />
-        <div th:if="${order.ready}">
+        <div th:if="${order.orderStatus == T(com.example.demo.model.entity.request.OrderStatus).DONE}">
             <p>This order is already done</p>
             <div th:if="${order.feedback != null}">
                 <p>You have left your feedback about it</p>

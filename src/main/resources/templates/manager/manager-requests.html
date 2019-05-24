@@ -17,8 +17,9 @@
             <p><span class="font-weight-bold">Request date:</span>
                 <span th:text="${request.date}" />
             </p>
-            <a th:href="@{/manager/accept/} + ${request.id}"><button class="btn btn-success" type="submit">Accept</button></a>
-            <a th:href="@{/manager/deny/} + ${request.id}"><button class="btn btn-danger" type="submit">Deny</button></a>
+            <a th:href="@{/manager/process/} + ${request.id}"><button class="btn btn-success" type="submit">Process</button></a>
+<!--            <a th:href="@{/manager/accept/} + ${request.id}"><button class="btn btn-success" type="submit">Accept</button></a>-->
+<!--            <a th:href="@{/manager/deny/} + ${request.id}"><button class="btn btn-danger" type="submit">Deny</button></a>-->
         </li>
     </ul>
 </div>
