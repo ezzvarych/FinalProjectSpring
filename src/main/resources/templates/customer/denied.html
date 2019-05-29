@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Denied Requests</title>
-    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
 </head>
 <body>
 <div th:insert="header :: header">Heeey</div>
@@ -13,8 +13,8 @@
     <li class="list-group-item">
         <p><span class="font-weight-bold">Problem description:</span>
             <span th:text="${deniedRequest.request.description}" />
-        <p><span class="font-weight-bold">Deny reason:</span>
-            <span th:text="${deniedRequest.denyReason}" />
+        <p><span class="font-weight-bold">Date:</span>
+            <span th:text="${deniedRequest.request.date}" />
     </li>
 </ul>
 

@@ -1,6 +1,7 @@
 package com.example.demo.controller.viewsContoller;
 
 import com.example.demo.model.entity.Feedback;
+import com.example.demo.model.entity.request.DeniedRequest;
 import com.example.demo.model.entity.request.Order;
 import com.example.demo.model.entity.request.Request;
 import com.example.demo.model.service.DeniedRequestService;
@@ -28,9 +29,15 @@ public class CustomerController {
 
     @GetMapping
     public ModelAndView getRequests() {
-        return new ModelAndView("/customer/customer-requests",
-                "requests",
-                requestService.getUnhandledByCustomer(UserSupportUtils.getCurrentUser()));
+        return new ModelAndView("/customer/not-accepted", "orders", orderService.getNonAcceptedCustomerOrders(UserSupportUtils.getCurrentUser()));
+    }
+
+    @PostMapping("/deny/{order}")
+    public String denyOrder(@PathVariable Order order) {
+        Request request = order.getRequest();
+        orderService.delete(order.getId());
+        deniedRequestService.create(new DeniedRequest(request));
+        return "redirect:/customer";
     }
 
     @GetMapping("/new-request")

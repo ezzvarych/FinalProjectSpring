@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
+//TODO Delete this entity, useless
 @Data
 @NoArgsConstructor
 @Entity
@@ -18,11 +18,15 @@ public class DeniedRequest {
     @MapsId
     private Request request;
 
-    @Column(nullable = false, updatable = false)
-    private String denyReason;
-
-    public DeniedRequest(Request request, String denyReason) {
+    public DeniedRequest(Request request) {
         this.request = request;
-        this.denyReason = denyReason;
     }
+
+    //    @Column(nullable = false, updatable = false)
+//    private String denyReason;
+//
+//    public DeniedRequest(Request request, String denyReason) {
+//        this.request = request;
+//        this.denyReason = denyReason;
+//    }
 }

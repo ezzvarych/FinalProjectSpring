@@ -21,8 +21,9 @@
         <tr>
             <td th:text="${order.request.description}">...</td>
             <td th:text="${order.price}">...</td>
-            <td th:text="${order.request.date}">...</td>
+            <td th:text="${order.orderDate}">...</td>
             <td><form method="post" th:action="@{/customer/process/} + ${order.id}"><button class="btn btn-success">Submit</button></form></td>
+            <td><form method="post" th:action="@{/customer/deny/} + ${order.id}"><button class="btn btn-danger">Deny</button></form></td>
         </tr>
     </th:block>
 </table>

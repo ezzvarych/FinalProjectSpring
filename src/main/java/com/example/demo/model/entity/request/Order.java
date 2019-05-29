@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Order entity, order = accepted by manager request
@@ -44,6 +46,8 @@ public class Order {
     @JoinColumn(name = "master_id")
     private User master;
 
+    private Timestamp orderDate;
+
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus = OrderStatus.NOT_ACCEPTED;
 
@@ -64,9 +68,9 @@ public class Order {
      * @param price - order price
      */
 
-    public Order(Request request, int price, String descr) {
+    public Order(Request request, int price, Timestamp date) {
         this.request = request;
-        this.request.setDescription(descr);
         this.price = price;
+        this.orderDate = date;
     }
 }

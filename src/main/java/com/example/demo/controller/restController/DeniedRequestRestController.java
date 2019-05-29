@@ -27,15 +27,15 @@ public class DeniedRequestRestController {
         this.requestService = requestService;
     }
 
-    @PreAuthorize("hasAuthority('MANAGER')")
-    @PostMapping
-    public ResponseEntity<DeniedRequest> denyRequest(@RequestBody DenyRequestDTO dto) {
-        Request request = requestService.getById(dto.getRequestId());
-        request.setManager(UserSupportUtils.getCurrentUser());
-
-        DeniedRequest deniedRequest = new DeniedRequest(request, dto.getDenyReason());
-        return new ResponseEntity<>(deniedRequestService.create(deniedRequest), HttpStatus.CREATED);
-    }
+//    @PreAuthorize("hasAuthority('MANAGER')")
+//    @PostMapping
+//    public ResponseEntity<DeniedRequest> denyRequest(@RequestBody DenyRequestDTO dto) {
+//        Request request = requestService.getById(dto.getRequestId());
+//        request.setManager(UserSupportUtils.getCurrentUser());
+//
+//        DeniedRequest deniedRequest = new DeniedRequest(request, dto.getDenyReason());
+//        return new ResponseEntity<>(deniedRequestService.create(deniedRequest), HttpStatus.CREATED);
+//    }
 
     @GetMapping
     public ResponseEntity<List<DeniedRequest>> getCustomerDenied() {
